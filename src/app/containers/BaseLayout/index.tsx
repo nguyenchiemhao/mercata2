@@ -10,7 +10,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Page from "../Page";
 import PageDetails from "../Pagedetails";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Sider } = Layout;
 
 const items1: MenuProps["items"] = ["1", "2", "3"].map((key) => ({
   key,
