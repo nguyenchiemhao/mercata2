@@ -1,43 +1,16 @@
 import React from "react";
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import type { MenuProps } from "antd";
 import { Layout, Menu } from "antd";
 import { Routes, Route } from "react-router-dom";
 import Page from "../Page";
 import PageDetails from "../Pagedetails";
+import {
+    UploadOutlined,
+    UserOutlined,
+    VideoCameraOutlined,
+} from '@ant-design/icons';
+import SelectCustom from "../../component/SelectCustom";
 
 const { Header, Sider } = Layout;
-
-const items1: MenuProps["items"] = ["1", "2", "3"].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
-
-const items2: MenuProps["items"] = [
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-].map((icon, index) => {
-  const key: any = String(index + 1);
-
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `subnav ${key}`,
-
-    children: new Array(4).fill(null).map((_, j) => {
-      const subKey: any = index * 4 + j + 1;
-      return {
-        key: subKey,
-        label: `option${subKey}`,
-      };
-    }),
-  };
-});
 
 const BaseLayout = () => (
   <Layout>
@@ -45,37 +18,78 @@ const BaseLayout = () => (
       className="header"
       style={{ position: "sticky", top: 0, zIndex: 1 }}
     >
-      <div className="logo" />
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={["2"]}
-        items={items1}
-      />
+        <div className="logo">
+            <img src={require('../../assets/images/logo.svg').default} alt='logo'/>
+            Mercata Document Management
+        </div>
+
+        <div className="content-center">
+            <SelectCustom />
+            <span>STRATO 7.7.1-b42a1959f</span>
+            <p>Prometheus Graphs<span>demo.@gmail.com</span></p>
+        </div>
+
+        <button className="btn-auth">Logout</button>
     </Header>
     <Layout>
       <Sider
-        width={200}
+        width={319}
         className="site-layout-background"
         style={{
           overflow: "auto",
           height: "100vh",
           position: "fixed",
           left: 0,
-          top: 64,
+          top: 53,
           bottom: 0,
         }}
       >
-        <Menu
+      <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
-          style={{ height: "100%", borderRight: 0 }}
-          items={items2}
-        />
+          defaultSelectedKeys={['1']}
+          items={[
+              {
+                  key: '1',
+                  icon: <UserOutlined />,
+                  label: 'Dashboard',
+              },
+              {
+                  key: '2',
+                  icon: <VideoCameraOutlined />,
+                  label: 'Chains',
+              },
+              {
+                  key: '3',
+                  icon: <UploadOutlined />,
+                  label: 'Blocks',
+              },
+              {
+                  key: '4',
+                  icon: <UploadOutlined />,
+                  label: 'Transactions',
+              },
+              {
+                  key: '5',
+                  icon: <UploadOutlined />,
+                  label: 'Accounts',
+              },
+              {
+                  key: '6',
+                  icon: <UploadOutlined />,
+                  label: 'Contracts',
+              },
+              {
+                  key: '7',
+                  icon: <UploadOutlined />,
+                  label: 'Mercata Title Blockchain',
+              },
+          ]}
+      />
+
+      <img className="logo-sidebar" src={require('../../assets/images/logo-sidebar.svg').default} alt='logo'/>
       </Sider>
-      <Layout style={{ marginLeft: 200, height: "100%" }}>
+      <Layout style={{ marginLeft: 319, height: "100%" }}>
         <Routes>
           <Route path="/" element={<div>home</div>}></Route>
           <Route path="/page" element={<Page />} />

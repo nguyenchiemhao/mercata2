@@ -1,0 +1,13 @@
+.wrap-table {
+    margin: 21px 14px;
+    padding: 12px 14px;
+    background: #394B59;
+    border-radius: 3px 3px 0px 0px;
+    min-height: calc(100vh - 201px);
+}
+h1 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 20px;
+}
