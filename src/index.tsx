@@ -5,18 +5,6 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
-//
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Layout, Menu } from "antd";
-import { Routes, Route, Link } from "react-router-dom";
-
-const { Header, Content, Sider } = Layout;
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

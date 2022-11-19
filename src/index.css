@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 code {
@@ -14,4 +15,15 @@ code {
 
 .ant-menu-horizontal {
   border: none !important;
+}
+
+.ant-typography {
+  color: white;
+}
+.ant-timeline-item-head {
+  background: none !important;
+  color: white !important;
+}
+.ant-timeline-item-tail {
+  background-color: white;
 }
