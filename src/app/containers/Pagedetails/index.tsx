@@ -23,17 +23,24 @@ import styled from "styled-components";
 import UploadFile from "../../component/UploadFile";
 import { DataType } from "../Page/List";
 import { ColumnsType } from "antd/es/table";
+import { useNavigate } from "react-router-dom";
 
 const { Search } = Input;
 const { Content } = Layout;
 const { Text } = Typography;
 
 function Header() {
+  const navigate = useNavigate();
+
   return (
     <div
       style={{ height: 40, display: "flex", justifyContent: "space-between" }}
     >
-      <Button type="primary" icon={<ArrowLeftOutlined />}></Button>
+      <Button
+        type="primary"
+        icon={<ArrowLeftOutlined />}
+        onClick={() => navigate(-1)}
+      ></Button>
 
       <Button type="primary">Transfer Ownership</Button>
     </div>
@@ -101,7 +108,10 @@ function PageDetails() {
         }}
       >
         <Header />
-        <Row gutter={[8, 8]} style={{ position: "relative", height: "100%" }}>
+        <Row
+          gutter={[8, 8]}
+          style={{ position: "relative", height: "100%", marginTop: 10 }}
+        >
           <Col span={18}>
             <AlmostDarkCard bordered={false} bodyStyle={{ padding: 16 }}>
               <Row>

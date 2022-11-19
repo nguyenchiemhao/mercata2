@@ -2,6 +2,7 @@ import React from "react";
 import { Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import SelectCustom from "../../component/SelectCustom";
+import { useNavigate } from "react-router-dom";
 
 export interface DataType {
   key: string;
@@ -61,13 +62,24 @@ const data: DataType[] = [
   },
 ];
 
-const List = () => (
-  <Table
-    className="custom-table"
-    columns={columns}
-    dataSource={data}
-    pagination={false}
-  />
-);
+const List = () => {
+  const navigate = useNavigate();
+
+  return (
+    <Table
+      className="custom-table"
+      columns={columns}
+      dataSource={data}
+      pagination={false}
+      onRow={(record, rowIndex) => {
+        return {
+          onClick: (event) => {
+            navigate("details");
+          },
+        };
+      }}
+    />
+  );
+};
 
 export default List;
