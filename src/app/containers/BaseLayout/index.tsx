@@ -49,7 +49,7 @@ const BaseLayout = () => {
           className="site-layout-background"
           style={{
             overflow: "auto",
-            height: "100vh",
+            height: "calc(100vh - 89px)",
             position: "fixed",
             left: 0,
             top: 53,
