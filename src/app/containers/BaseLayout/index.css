@@ -1,3 +1,27 @@
+.header .content-center .custom-select {
+  padding: 0 !important;
+}
 .header .custom-select .ant-select-single .ant-select-selector {
   width: 350px;
+}
+.content-center {
+  position: relative;
+}
+.content-center .line {
+  width: 1px;
+  height: 16px;
+  background: #BFCCD6;
+  left: 0;
+  transform: translateY(16px);
+  margin: 0 10px;
+  display: block;
+}
+.content-center .nick-name {
+  margin-left: 9px;
+  color: #48AFF0;
+}
+.content-center .nick-name span {
+  font-size: 11px;
+  color: #BFCCD6;
+  margin-left: 31px;
 }

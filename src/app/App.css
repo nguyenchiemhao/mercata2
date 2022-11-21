@@ -42,7 +42,3 @@
     transform: rotate(360deg);
   }
 }
-
-input::-webkit-input-placeholder {
-  color: red !important;
-}

@@ -65,6 +65,9 @@ code {
 .custom-popup {
   background: #293742;
 }
+.ant-menu-dark.ant-menu-inline .ant-menu-item {
+  padding: 9px 12px 9px 18px;
+}
 .custom-popup.ant-select-dropdown .ant-select-item {
   color: #DFE4E8;
   font-size: 11px;
@@ -138,6 +141,7 @@ code {
   line-height: 36px;
   background: #394B59;
   margin: 0;
+  cursor: pointer;
 }
 .anticon {
   color: #BFCCD6;

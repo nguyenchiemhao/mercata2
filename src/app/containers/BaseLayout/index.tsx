@@ -45,12 +45,13 @@ const BaseLayout = () => {
           Mercata Document Management
         </div>
 
-        <span />
-
         <div className="content-center">
+          <span  className="line"/>
           <SelectCustom options={optionsFile} defaultValue="Product-723712-chain"/>
+          <span  className="line"/>
           <span>STRATO 7.7.1-b42a1959f</span>
-          <p>
+          <span  className="line"/>
+          <p className="nick-name">
             Prometheus Graphs<span>demo.@gmail.com</span>
           </p>
         </div>
@@ -63,7 +64,7 @@ const BaseLayout = () => {
           className="site-layout-background"
           style={{
             overflow: "auto",
-            height: "calc(100vh - 89px)",
+            height: "calc(100vh - 107px)",
             position: "fixed",
             left: 0,
             top: 53,

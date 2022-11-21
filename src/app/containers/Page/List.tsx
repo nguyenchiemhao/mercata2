@@ -1,8 +1,8 @@
-import React from 'react';
-import { Space, Table } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import SelectCustom from '../../component/SelectCustom';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Space, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import SelectCustom from "../../component/SelectCustom";
+import { useNavigate } from "react-router-dom";
 
 export interface DataType {
   key: string;
@@ -16,103 +16,120 @@ export interface DataType {
 
 const data: DataType[] = [
   {
-    key: '1',
-    file: 'test_888376.txt',
+    key: "1",
+    file: "test_888376.txt",
     versions: 2,
-    owner: 'owner',
-    date_update: '22 Jun 2020 02:47:53',
-    date_active: '22 Jun 2020 02:47:53'
-  }
+    owner: "owner",
+    date_update: "22 Jun 2020 02:47:53",
+    date_active: "22 Jun 2020 02:47:53",
+  },
 ];
 
 const optionsVersion: any[] = [
   {
-      value: 'VERSION 1',
-      label: 'VERSION 1',
+    value: "VERSION 1",
+    label: "VERSION 1",
   },
   {
-      value: 'VERSION 2',
-      label: 'VERSION 2',
-  }
-]
+    value: "VERSION 2",
+    label: "VERSION 2",
+  },
+];
 
 const List = () => {
   const navigate = useNavigate();
 
   const columns: ColumnsType<DataType> = [
     {
-      title: 'File Name',
-      dataIndex: 'file',
-      key: 'file',
+      title: "File Name",
+      dataIndex: "file",
+      key: "file",
       onCell: (record, rowIndex) => {
         return {
           onClick: (event) => {
-            navigate('details');
-          }
+            navigate("details");
+          },
         };
-      }
+      },
     },
     {
-      title: 'Versions',
-      dataIndex: 'versions',
-      key: 'versions',
+      title: "Versions",
+      dataIndex: "versions",
+      key: "versions",
+      render: (_, { versions }) => (
+        <span
+          style={{
+            background: "#293742",
+            color: "#fff",
+            padding: "2px 9px",
+            borderRadius: "10px",
+          }}
+        >
+          {versions}
+        </span>
+      ),
       onCell: (record, rowIndex) => {
         return {
           onClick: (event) => {
-            navigate('details');
-          }
+            navigate("details");
+          },
         };
-      }
+      },
     },
     {
-      title: 'Owner',
-      dataIndex: 'owner',
-      key: 'owner',
+      title: "Owner",
+      dataIndex: "owner",
+      key: "owner",
       onCell: (record, rowIndex) => {
         return {
           onClick: (event) => {
-            navigate('details');
-          }
+            navigate("details");
+          },
         };
-      }
+      },
     },
     {
-      title: 'Date Uploaded',
-      key: 'date_update',
-      dataIndex: 'date_update',
+      title: "Date Uploaded",
+      key: "date_update",
+      dataIndex: "date_update",
       onCell: (record, rowIndex) => {
         return {
           onClick: (event) => {
-            navigate('details');
-          }
+            navigate("details");
+          },
         };
-      }
+      },
     },
     {
-      title: 'Last Activity At',
-      key: 'date_active',
-      dataIndex: 'date_active',
+      title: "Last Activity At",
+      key: "date_active",
+      dataIndex: "date_active",
       onCell: (record, rowIndex) => {
         return {
           onClick: (event) => {
-            navigate('details');
-          }
+            navigate("details");
+          },
         };
-      }
+      },
     },
     {
-      key: 'action',
+      key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <SelectCustom 
-           placeholder="Download"
-           options={optionsVersion}/>
+          <SelectCustom placeholder="Download" options={optionsVersion} />
         </Space>
-      )
-    }
+      ),
+    },
   ];
 
-  return <Table className="custom-table" columns={columns} dataSource={data} pagination={false} />;
+  return (
+    <Table
+      className="custom-table"
+      columns={columns}
+      dataSource={data}
+      pagination={false}
+    />
+  );
 };
 
 export default List;
