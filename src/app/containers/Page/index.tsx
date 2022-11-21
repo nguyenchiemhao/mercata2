@@ -1,4 +1,5 @@
 import { Layout } from "antd";
+import PaginationCustom from "../../component/PaginationCustom";
 import UploadFile from "../../component/UploadFile";
 import List from "./List";
 import "./style.css";
@@ -11,7 +12,7 @@ function Page() {
       style={{ minHeight: "calc( 100vh - 50px )", padding: "15px 5px"}}
       className="site-layout-background"
     >
-      <UploadFile />
+      <UploadFile uploadVersion={false} />
 
       <div className="wrap-table">
         {/* TITLE */}
@@ -20,6 +21,9 @@ function Page() {
         {/* TABLE LIST */}
         <List />
       </div>
+
+      {/* PAGINATION */}
+      <PaginationCustom />
     </Content>
   );
 }

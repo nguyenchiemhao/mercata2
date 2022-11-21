@@ -4,7 +4,7 @@ import { message, Upload } from 'antd';
 
 const { Dragger } = Upload;
 
-const props: UploadProps = {
+const prop: UploadProps = {
     name: 'file',
     multiple: true,
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -24,15 +24,26 @@ const props: UploadProps = {
     },
 };
 
-const UploadFile = () => (
-    <Dragger {...props}>
-        <div className="drag-upload">
-            <img src={require('../assets/images/upload.svg').default} alt="icon-upload"/>
-            <div className="wrap-upload">
-                <button>Select file</button>
-                <p>or drop file to upload</p>
-            </div>
-        </div>
+interface IProps {
+    uploadVersion? : boolean
+}
+const UploadFile =({uploadVersion=false}:IProps )=> (
+    <Dragger {...prop}>
+        {
+            uploadVersion ? (
+            <div className="drag-upload">
+                <div className="wrap-upload">
+                    <button>Add new version</button>
+                    <p>or drop file to upload</p>
+                </div>
+            </div>) : (<div className="drag-upload">
+                <img src={require('../assets/images/upload.svg').default} alt="icon-upload"/>
+                <div className="wrap-upload">
+                    <button>Select file</button>
+                    <p>or drop file to upload</p>
+                </div>
+            </div>)
+        }
     </Dragger>
 );
 

@@ -247,7 +247,7 @@ function PageDetails() {
                       <Badge>2</Badge>
                     </Col>
                   </Row>
-                  <UploadFile />
+                  <UploadFile uploadVersion={true}/>
                   <Table
                     className="custom-table"
                     columns={columns}

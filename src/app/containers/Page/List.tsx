@@ -25,6 +25,17 @@ const data: DataType[] = [
   }
 ];
 
+const optionsVersion: any[] = [
+  {
+      value: 'VERSION 1',
+      label: 'VERSION 1',
+  },
+  {
+      value: 'VERSION 2',
+      label: 'VERSION 2',
+  }
+]
+
 const List = () => {
   const navigate = useNavigate();
 
@@ -90,11 +101,12 @@ const List = () => {
       }
     },
     {
-      title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <SelectCustom />
+          <SelectCustom 
+           placeholder="Download"
+           options={optionsVersion}/>
         </Space>
       )
     }

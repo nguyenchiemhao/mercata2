@@ -1,37 +1,26 @@
-import React from 'react';
-import { Select } from 'antd';
+import React from "react";
+import { Select } from "antd";
+import { CaretDownOutlined } from "@ant-design/icons";
 
 const onChange = (value: string) => {
-    console.log(`selected ${value}`);
+  console.log(`selected ${value}`);
 };
 
-const onSearch = (value: string) => {
-    console.log('search:', value);
-};
-
-const SelectCustom = () => (
+const SelectCustom = (props:any) => {
+  const { options=[], placeholder="select" } = props
+  return (
     <div className="custom-select">
-        <Select
-            showSearch
-            placeholder="Select a person"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearch}
-            filterOption={(input, option) =>
-                (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-            }
-            options={[
-                {
-                    value: 'Product-723712-chain',
-                    label: 'Product-723712-chain',
-                },
-                {
-                    value: 'Product-q2323-chain',
-                    label: 'Product-q2323-chain',
-                }
-            ]}
-        />
+      <Select
+        suffixIcon={<CaretDownOutlined style={{ color: '#BFCCD6' }}/>}
+        popupClassName="custom-popup"
+        optionFilterProp="children"
+        placeholder={placeholder}
+        onChange={onChange}
+        options={options}
+        {...props}
+      />
     </div>
-);
+  );
+};
 
 export default SelectCustom;

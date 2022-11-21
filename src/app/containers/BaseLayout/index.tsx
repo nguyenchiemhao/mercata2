@@ -2,6 +2,7 @@ import React from "react";
 import { Layout, Menu } from "antd";
 import { Routes, Route } from "react-router-dom";
 import Page from "../Page";
+import './index.css'
 import PageDetails from "../Pagedetails";
 import {
   UploadOutlined,
@@ -12,6 +13,17 @@ import SelectCustom from "../../component/SelectCustom";
 import { useNavigate } from "react-router-dom";
 
 const { Header, Sider } = Layout;
+
+const optionsFile: any[] = [
+  {
+      value: 'Product-723712-chain',
+      label: 'Product-723712-chain',
+  },
+  {
+      value: 'Product-000000-chain',
+      label: 'Product-000000-chain',
+  }
+]
 
 const BaseLayout = () => {
   const navigate = useNavigate();
@@ -33,8 +45,10 @@ const BaseLayout = () => {
           Mercata Document Management
         </div>
 
+        <span />
+
         <div className="content-center">
-          <SelectCustom />
+          <SelectCustom options={optionsFile} defaultValue="Product-723712-chain"/>
           <span>STRATO 7.7.1-b42a1959f</span>
           <p>
             Prometheus Graphs<span>demo.@gmail.com</span>
