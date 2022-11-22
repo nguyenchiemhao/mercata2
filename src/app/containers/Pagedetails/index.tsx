@@ -27,6 +27,8 @@ import { ColumnsType } from "antd/es/table";
 import { useNavigate } from "react-router-dom";
 import SelectCustom from "../../component/SelectCustom";
 import QR from "../../assets/images/QR.png";
+import QR2 from "../../assets/images/QR2.png";
+import { useState } from "react";
 
 const { Search } = Input;
 const { Content } = Layout;
@@ -104,7 +106,7 @@ const columns: ColumnsType<DataType> = [
     title: "VERSION",
     dataIndex: "versions",
     key: "version",
-    align: "center"
+    align: "center",
   },
   {
     title: "UPLOAD BY",
@@ -140,8 +142,27 @@ const columns: ColumnsType<DataType> = [
 ];
 
 const onSearch = (value: string) => console.log(value);
+const versionOption = [
+  {
+    value: "version1",
+    label: "Version 1",
+    text: "e862dd7af4f62fe6d31a196fe6786fd",
+    image: QR,
+  },
+  {
+    value: "version2",
+    label: "Version 2",
+    text: "this is the image",
+    image: QR2,
+  },
+];
 
 function PageDetails() {
+  const [selectedQR, setSelectedQR] = useState<any>(versionOption[0]);
+  const onSelect = (value: any) => {
+    setSelectedQR(versionOption.find((x) => x.value === value));
+    console.log(value, selectedQR);
+  };
   return (
     <Content
       style={{
@@ -212,26 +233,18 @@ function PageDetails() {
                   >
                     <Col>
                       <SelectCustom
-                        options={[
-                          {
-                            value: "version1",
-                            label: "Version 1",
-                          },
-                          {
-                            value: "version2",
-                            label: "Version 2",
-                          },
-                        ]}
+                        options={versionOption}
                         defaultValue="version1"
+                        onChange={(value: any) => onSelect(value)}
                       />
                     </Col>
                     <Col>
-                      <Image width={150} height={150} src={QR} />
+                      <Image width={150} height={150} src={selectedQR.image} />
                     </Col>
                     <Col>
                       <Text>
                         <FileOutlined />
-                        This is a text.
+                        {selectedQR.text}
                       </Text>
                     </Col>
                   </Row>
