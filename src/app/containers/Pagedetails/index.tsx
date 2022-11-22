@@ -112,10 +112,14 @@ const columns: ColumnsType<DataType> = [
     key: "action",
     render: () => (
       <Space.Compact block>
-        <Button type="primary" ghost style={{ width: 100, color: "#dfe4e8" }}>
+        <Button
+          type="primary"
+          ghost
+          style={{ width: 100, color: "#dfe4e8", border: "none", background: "#293742" }}
+        >
           Attest
         </Button>
-        <Button type="primary" style={{ width: 100 }}>
+        <Button type="primary" style={{ width: 100, background: "#3452ff", border: "none" }}>
           Download
         </Button>
       </Space.Compact>
