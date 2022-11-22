@@ -8,28 +8,23 @@ import {
   Input,
   Layout,
   Row,
-  Select,
-  Space,
   Table,
-  Timeline,
   Typography,
 } from "antd";
 import {
   ArrowLeftOutlined,
   FileOutlined,
-  InfoCircleOutlined,
   CheckCircleOutlined,
 } from "@ant-design/icons";
-import './index.css'
+import "./index.css";
 import styled from "styled-components";
 import UploadFile from "../../component/UploadFile";
 import { DataType } from "../Page/List";
 import { ColumnsType } from "antd/es/table";
 import { useNavigate } from "react-router-dom";
 import SelectCustom from "../../component/SelectCustom";
-import QR from "../../assets/images/QR.png";
-import QR2 from "../../assets/images/QR2.png";
 import { useState } from "react";
+import { initMembers, versionOption } from "../../mockup";
 
 const { Search } = Input;
 const { Content } = Layout;
@@ -71,7 +66,7 @@ const data: DataType[] = [
     uploaded_by: "user1@yopmail.com",
   },
   {
-    key: "1",
+    key: "2",
     tag: 0,
     file: "test_888376.txt",
     versions: 2,
@@ -86,7 +81,7 @@ const columns: ColumnsType<DataType> = [
   {
     title: <CheckCircleOutlined />,
     dataIndex: "versions",
-    key: "version",
+    key: "amount",
     align: "center",
     render: (value, record, index) => {
       return (
@@ -143,27 +138,20 @@ const columns: ColumnsType<DataType> = [
 ];
 
 const onSearch = (value: string) => console.log(value);
-const versionOption = [
-  {
-    value: "version1",
-    label: "Version 1",
-    text: "e862dd7af4f62fe6d31a196fe6786fd",
-    image: QR,
-  },
-  {
-    value: "version2",
-    label: "Version 2",
-    text: "this is the image",
-    image: QR2,
-  },
-];
 
 function PageDetails() {
+
   const [selectedQR, setSelectedQR] = useState<any>(versionOption[0]);
+  const [members, setMembers] = useState<any>(initMembers);
+
   const onSelect = (value: any) => {
     setSelectedQR(versionOption.find((x) => x.value === value));
-    console.log(value, selectedQR);
   };
+
+  const removeMember = (id: any) => {
+    setMembers(members.filter((x: any) => x.id !== id));
+  };
+
   return (
     <Content
       style={{
@@ -269,34 +257,33 @@ function PageDetails() {
                   </Row>
                   <Row style={{ marginTop: 10 }}>
                     <Col span={24}>
-                      <Row
-                        gutter={[8, 8]}
-                        justify={"space-between"}
-                        align={"middle"}
-                        style={{ marginTop: 20 }}
-                      >
-                        <Col span={18}>
-                          <Text>user1@yopmail.com</Text>
-                        </Col>
-                        <Col span={6}>
-                          <Badge>Owner</Badge>
-                        </Col>
-                      </Row>
-                      <Row
-                        gutter={[8, 8]}
-                        justify={"space-between"}
-                        align={"middle"}
-                        style={{ marginTop: 20 }}
-                      >
-                        <Col span={18}>
-                          <Text>user1@yopmail.com</Text>
-                        </Col>
-                        <Col span={6}>
-                          <Button size="small" danger type="primary">
-                            Remove
-                          </Button>
-                        </Col>
-                      </Row>
+                      {members.map((member: any) => (
+                        <Row
+                          key={member.id}
+                          gutter={[8, 8]}
+                          justify={"space-between"}
+                          align={"middle"}
+                          style={{ marginTop: 20 }}
+                        >
+                          <Col span={18}>
+                            <Text>{member.user}</Text>
+                          </Col>
+                          <Col span={6}>
+                            {member.isOwner ? (
+                              <Badge>Owner</Badge>
+                            ) : (
+                              <Button
+                                size="small"
+                                danger
+                                type="primary"
+                                onClick={() => removeMember(member.id)}
+                              >
+                                Remove
+                              </Button>
+                            )}
+                          </Col>
+                        </Row>
+                      ))}
                     </Col>
                   </Row>
                 </AlmostDarkCard>
@@ -323,7 +310,11 @@ function PageDetails() {
             </Row>
           </Col>
           <Col span={6}>
-          <AlmostDarkCard bodyStyle={{ padding: "24px" }} bordered={false} style={{ height: "100%" }}>
+            <AlmostDarkCard
+              bodyStyle={{ padding: "24px" }}
+              bordered={false}
+              style={{ height: "100%" }}
+            >
               <h3 className="title-audit">Audit log</h3>
               <div className="version-infor">
                 <div className="item-version">
