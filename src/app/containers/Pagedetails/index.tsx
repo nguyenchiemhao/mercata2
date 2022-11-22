@@ -115,11 +115,19 @@ const columns: ColumnsType<DataType> = [
         <Button
           type="primary"
           ghost
-          style={{ width: 100, color: "#dfe4e8", border: "none", background: "#293742" }}
+          style={{
+            width: 100,
+            color: "#dfe4e8",
+            border: "none",
+            background: "#293742",
+          }}
         >
           Attest
         </Button>
-        <Button type="primary" style={{ width: 100, background: "#3452ff", border: "none" }}>
+        <Button
+          type="primary"
+          style={{ width: 100, background: "#3452ff", border: "none" }}
+        >
           Download
         </Button>
       </Space.Compact>
@@ -151,7 +159,11 @@ function PageDetails() {
         <Header />
         <Row
           gutter={[8, 8]}
-          style={{ position: "relative", height: "100%", marginTop: 10 }}
+          style={{
+            position: "relative",
+            height: "calc(100% - 75px)",
+            marginTop: 10,
+          }}
         >
           <Col span={18}>
             <AlmostDarkCard bordered={false} bodyStyle={{ padding: 16 }}>
