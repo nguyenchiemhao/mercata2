@@ -20,6 +20,7 @@ import {
   InfoCircleOutlined,
   CheckCircleOutlined,
 } from "@ant-design/icons";
+import './index.css'
 import styled from "styled-components";
 import UploadFile from "../../component/UploadFile";
 import { DataType } from "../Page/List";
@@ -309,36 +310,34 @@ function PageDetails() {
             </Row>
           </Col>
           <Col span={6}>
-            <AlmostDarkCard bordered={false} style={{ height: "100%" }}>
-              <Timeline>
-                <Timeline.Item
-                  style={{ background: "none" }}
-                  dot={<InfoCircleOutlined />}
-                >
+          <AlmostDarkCard bodyStyle={{ padding: "24px" }} bordered={false} style={{ height: "100%" }}>
+              <h3 className="title-audit">Audit log</h3>
+              <div className="version-infor">
+                <div className="item-version">
                   <DarkCard bodyStyle={{ padding: 16 }}>
                     <Title level={5}>Version 1</Title>
                     <Text>user1@yopmail.com</Text>
                     <WhiteDivider />
                     <Text>30 Jun 2022 02:47:54</Text>
                   </DarkCard>
-                </Timeline.Item>
-                <Timeline.Item dot={<InfoCircleOutlined />}>
+                </div>
+                <div className="item-version">
                   <DarkCard bodyStyle={{ padding: 16 }}>
                     <Title level={5}>Version 2</Title>
                     <Text>user1@yopmail.com</Text>
                     <WhiteDivider />
                     <Text>30 Jun 2022 02:47:54</Text>
                   </DarkCard>
-                </Timeline.Item>
-                <Timeline.Item dot={<InfoCircleOutlined />}>
+                </div>
+                <div className="item-version">
                   <DarkCard bodyStyle={{ padding: 16 }}>
                     <Title level={5}>Version 3</Title>
                     <Text>user1@yopmail.com</Text>
                     <WhiteDivider />
                     <Text>30 Jun 2022 02:47:54</Text>
                   </DarkCard>
-                </Timeline.Item>
-              </Timeline>
+                </div>
+              </div>
             </AlmostDarkCard>
           </Col>
         </Row>
