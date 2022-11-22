@@ -59,6 +59,7 @@ function Header() {
 const data: DataType[] = [
   {
     key: "1",
+    tag: 0,
     file: "test_888376.txt",
     versions: 1,
     owner: "owner",
@@ -68,6 +69,7 @@ const data: DataType[] = [
   },
   {
     key: "1",
+    tag: 0,
     file: "test_888376.txt",
     versions: 2,
     owner: "owner",
@@ -82,6 +84,7 @@ const columns: ColumnsType<DataType> = [
     title: <CheckCircleOutlined />,
     dataIndex: "versions",
     key: "version",
+    align: "center",
     render: (value, record, index) => {
       return (
         <Badge
@@ -98,25 +101,25 @@ const columns: ColumnsType<DataType> = [
     },
   },
   {
-    title: "Version",
+    title: "VERSION",
     dataIndex: "versions",
     key: "version",
+    align: "center"
   },
   {
-    title: "Uploaded by",
+    title: "UPLOAD BY",
     dataIndex: "uploaded_by",
     key: "uploaded_by",
   },
   {
-    title: "Action",
     key: "action",
     render: () => (
-      <Space.Compact block>
+      <>
         <Button
           type="primary"
           ghost
+          size="small"
           style={{
-            width: 100,
             color: "#dfe4e8",
             border: "none",
             background: "#293742",
@@ -125,12 +128,13 @@ const columns: ColumnsType<DataType> = [
           Attest
         </Button>
         <Button
+          size="small"
           type="primary"
-          style={{ width: 100, background: "#3452ff", border: "none" }}
+          style={{ background: "#3452ff", border: "none" }}
         >
           Download
         </Button>
-      </Space.Compact>
+      </>
     ),
   },
 ];
@@ -235,7 +239,7 @@ function PageDetails() {
               </Row>
             </AlmostDarkCard>
             <Row gutter={[8, 8]} style={{ marginTop: 16 }}>
-              <Col span={11}>
+              <Col span={10}>
                 <AlmostDarkCard bodyStyle={{ padding: 16 }}>
                   <Row justify={"space-between"}>
                     <Col>
@@ -283,8 +287,8 @@ function PageDetails() {
                   </Row>
                 </AlmostDarkCard>
               </Col>
-              <Col span={13}>
-                <AlmostDarkCard>
+              <Col span={14}>
+                <AlmostDarkCard bodyStyle={{ padding: 14 }}>
                   <Row justify={"space-between"} style={{ marginBottom: 20 }}>
                     <Col>
                       <Text strong>Version</Text>
@@ -295,7 +299,7 @@ function PageDetails() {
                   </Row>
                   <UploadFile uploadVersion={true} />
                   <Table
-                    className="custom-table"
+                    className="custom-table table-version"
                     columns={columns}
                     dataSource={data}
                     pagination={false}

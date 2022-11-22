@@ -60,7 +60,7 @@ const BaseLayout = () => {
       </Header>
       <Layout>
         <Sider
-          width={319}
+          width={300}
           className="site-layout-background"
           style={{
             overflow: "auto",
@@ -121,7 +121,7 @@ const BaseLayout = () => {
             alt="logo"
           />
         </Sider>
-        <Layout style={{ marginLeft: 319, height: "100%" }}>
+        <Layout style={{ marginLeft: 300, height: "100%" }}>
           <Routes>
             <Route path="/" element={<div>home</div>}></Route>
             <Route path="/page" element={<Page />} />

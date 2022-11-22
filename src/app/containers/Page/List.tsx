@@ -12,6 +12,7 @@ export interface DataType {
   date_update: string;
   date_active: string;
   uploaded_by?: string;
+  tag?: number
 }
 
 const data: DataType[] = [
