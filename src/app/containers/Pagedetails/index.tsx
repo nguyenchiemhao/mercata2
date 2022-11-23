@@ -35,7 +35,7 @@ function Header() {
 
   return (
     <div
-      style={{ height: 40, display: "flex", justifyContent: "space-between" }}
+      style={{ height: 28, display: "flex", justifyContent: "space-between" }}
     >
       <Button
         type="primary"
@@ -111,6 +111,7 @@ const columns: ColumnsType<DataType> = [
   },
   {
     key: "action",
+    align: "right",
     render: () => (
       <>
         <Button
@@ -121,6 +122,11 @@ const columns: ColumnsType<DataType> = [
             color: "#dfe4e8",
             border: "none",
             background: "#293742",
+            fontSize: 11,
+            padding: "9px 10px",
+            display: "inline-flex",
+            alignItems: "center",
+            height: "27px"
           }}
         >
           Attest
@@ -128,7 +134,15 @@ const columns: ColumnsType<DataType> = [
         <Button
           size="small"
           type="primary"
-          style={{ background: "#3452ff", border: "none" }}
+          style={{ 
+            background: "#3452ff",
+             border: "none",
+             fontSize: 11, 
+             padding: "9px 10px",
+             display: "inline-flex",
+             alignItems: "center",
+             height: "27px"
+            }}
         >
           Download
         </Button>
@@ -140,7 +154,6 @@ const columns: ColumnsType<DataType> = [
 const onSearch = (value: string) => console.log(value);
 
 function PageDetails() {
-
   const [selectedQR, setSelectedQR] = useState<any>(versionOption[0]);
   const [members, setMembers] = useState<any>(initMembers);
 
@@ -156,7 +169,7 @@ function PageDetails() {
     <Content
       style={{
         minHeight: "calc( 100vh - 64px )",
-        padding: 15,
+        padding: "4px 18px 15px 13px",
         background: "#293742",
         position: "relative",
       }}
@@ -228,7 +241,7 @@ function PageDetails() {
                       />
                     </Col>
                     <Col>
-                      <Image width={150} height={150} src={selectedQR.image} />
+                      <Image width={97} height={97} src={selectedQR.image} />
                     </Col>
                     <Col>
                       <Text>
@@ -251,7 +264,9 @@ function PageDetails() {
                       <DarkSearch
                         placeholder="Search for users"
                         onSearch={onSearch}
-                        style={{ width: 200 }}
+                        style={{ 
+                          width: 150
+                         }}
                       />
                     </Col>
                   </Row>
@@ -268,7 +283,7 @@ function PageDetails() {
                           <Col span={18}>
                             <Text>{member.user}</Text>
                           </Col>
-                          <Col span={6}>
+                          <Col span={6} style={{ textAlign: "center" }}>
                             {member.isOwner ? (
                               <Badge>Owner</Badge>
                             ) : (
@@ -295,7 +310,7 @@ function PageDetails() {
                       <Text strong>Version</Text>
                     </Col>
                     <Col>
-                      <Badge>2</Badge>
+                      <span className="number-version">2</span>
                     </Col>
                   </Row>
                   <UploadFile uploadVersion={true} />
@@ -313,7 +328,7 @@ function PageDetails() {
             <AlmostDarkCard
               bodyStyle={{ padding: "24px" }}
               bordered={false}
-              style={{ height: "100%" }}
+              style={{ height: "calc(100vh - 107px)" }}
             >
               <h3 className="title-audit">Audit log</h3>
               <div className="version-infor">
@@ -375,6 +390,7 @@ const DarkSearch = styled(Search)`
     background-color: #293742;
     border-color: #293742;
     color: #dfe4e8;
+    font-size: 11px;
   }
   input::placeholder {
     color: #dfe4e8;

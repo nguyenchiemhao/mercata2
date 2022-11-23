@@ -31,7 +31,7 @@ const UploadFile =({uploadVersion=false}:IProps )=> (
     <Dragger {...prop}>
         {
             uploadVersion ? (
-            <div className="drag-upload">
+            <div className="drag-upload upload-version">
                 <div className="wrap-upload">
                     <button>Add new version</button>
                     <p>or drop file to upload</p>

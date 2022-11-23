@@ -61,6 +61,7 @@ code {
   border-radius: 3px;
   width: 114px;
   border: none;
+  text-align: left;
 }
 .custom-popup {
   background: #293742;
@@ -172,6 +173,13 @@ code {
   font-size: 14px;
   color: #fff;
 }
+.upload-version .wrap-upload button {
+  margin-bottom: 5px;
+  font-size: 11px;
+}
+.upload-version .wrap-upload p {
+  font-size: 11px;
+}
 
 /*style base layout*/
 .header {
@@ -183,6 +191,7 @@ code {
   display: flex;
   align-self: center;
   color: #bfccd6;
+  font-size: 16px;
 }
 .header .logo img {
   margin-right: 14px;
@@ -215,7 +224,7 @@ code {
 }
 
 /* style table page detail*/
-.table-version.ant-table-wrapper .ant-table-tbody>tr>th {
+.table-version.ant-table-wrapper .ant-table-thead>tr>th {
   padding: 13px 5px;
 }
 .table-version.ant-table-wrapper .ant-table-tbody>tr>td {
@@ -223,4 +232,15 @@ code {
 }
 .ant-timeline .ant-timeline-item {
   padding-bottom: 2px;
+}
+.site-layout-background .number-version {
+  color: #fff;
+  font-size: 14px;
+  padding: 1px 9px;
+  line-height: 1;
+  background: #293742;
+  border-radius: 10px;
+}
+.ant-input-search .ant-input-search-button {
+  height: 27px;
 }

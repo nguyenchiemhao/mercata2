@@ -115,6 +115,7 @@ const List = () => {
     },
     {
       key: "action",
+      align: "right",
       render: (_, record) => (
         <Space size="middle">
           <SelectCustom placeholder="Download" options={optionsVersion} />
