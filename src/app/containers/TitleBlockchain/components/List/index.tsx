@@ -1,19 +1,9 @@
 import React from "react";
 import { Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import SelectCustom from "../../component/SelectCustom";
+import SelectCustom from "../../../../component/SelectCustom";
 import { useNavigate } from "react-router-dom";
-
-export interface DataType {
-  key: string;
-  file: string;
-  versions: number;
-  owner: string;
-  date_update: string;
-  date_active: string;
-  uploaded_by?: string;
-  tag?: number
-}
+import { DataType } from "../../../../mockup";
 
 const data: DataType[] = [
   {
@@ -45,13 +35,6 @@ const List = () => {
       title: "File Name",
       dataIndex: "file",
       key: "file",
-      onCell: (record, rowIndex) => {
-        return {
-          onClick: (event) => {
-            navigate("details");
-          },
-        };
-      },
     },
     {
       title: "Versions",
@@ -64,59 +47,38 @@ const List = () => {
             color: "#fff",
             padding: "2px 9px",
             borderRadius: "10px",
-            lineHeight: "12px"
+            lineHeight: "12px",
           }}
         >
           {versions}
         </span>
       ),
-      onCell: (record, rowIndex) => {
-        return {
-          onClick: (event) => {
-            navigate("details");
-          },
-        };
-      },
     },
     {
       title: "Owner",
       dataIndex: "owner",
       key: "owner",
-      onCell: (record, rowIndex) => {
-        return {
-          onClick: (event) => {
-            navigate("details");
-          },
-        };
-      },
     },
     {
       title: "Date Uploaded",
       key: "date_update",
       dataIndex: "date_update",
-      onCell: (record, rowIndex) => {
-        return {
-          onClick: (event) => {
-            navigate("details");
-          },
-        };
-      },
     },
     {
       title: "Last Activity At",
       key: "date_active",
       dataIndex: "date_active",
-      onCell: (record, rowIndex) => {
-        return {
-          onClick: (event) => {
-            navigate("details");
-          },
-        };
-      },
     },
     {
       key: "action",
       align: "right",
+      onCell: (record, rowIndex) => {
+        return {
+          onClick: (event) => {
+            event.stopPropagation();
+          },
+        };
+      },
       render: (_, record) => (
         <Space size="middle">
           <SelectCustom placeholder="Download" options={optionsVersion} />
@@ -131,6 +93,13 @@ const List = () => {
       columns={columns}
       dataSource={data}
       pagination={false}
+      onRow={(record, rowIndex) => {
+        return {
+          onClick: (event) => {
+            navigate("details");
+          },
+        };
+      }}
     />
   );
 };

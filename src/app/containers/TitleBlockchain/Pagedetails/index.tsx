@@ -1,81 +1,39 @@
 import {
   Button,
-  Card,
   Col,
   Descriptions,
-  Divider,
   Image,
-  Input,
   Layout,
   Row,
   Table,
   Typography,
 } from "antd";
-import {
-  ArrowLeftOutlined,
-  FileOutlined,
-  CheckCircleOutlined,
-} from "@ant-design/icons";
+import { FileOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import "./index.css";
-import styled from "styled-components";
-import UploadFile from "../../component/UploadFile";
-import { DataType } from "../Page/List";
+import UploadFile from "../../../component/UploadFile";
 import { ColumnsType } from "antd/es/table";
-import { useNavigate } from "react-router-dom";
-import SelectCustom from "../../component/SelectCustom";
-import { useState } from "react";
-import { initMembers, versionOption } from "../../mockup";
 
-const { Search } = Input;
+import SelectCustom from "../../../component/SelectCustom";
+import { useState } from "react";
+import {
+  DataType,
+  initMembers,
+  tableVersionData,
+  versionOption,
+} from "../../../mockup";
+import {
+  AlmostDarkCard,
+  Badge,
+  DarkCard,
+  DarkSearch,
+  Title,
+  WhiteDivider,
+} from "./styles";
+import Header from "../components/PageDetailsHeader";
+import { Outlet } from "react-router-dom";
+
 const { Content } = Layout;
 const { Text } = Typography;
-
-function Header() {
-  const navigate = useNavigate();
-
-  return (
-    <div
-      style={{ height: 28, display: "flex", justifyContent: "space-between" }}
-    >
-      <Button
-        type="primary"
-        icon={<ArrowLeftOutlined />}
-        onClick={() => navigate(-1)}
-        style={{ background: "none", border: "none", boxShadow: "none" }}
-      ></Button>
-
-      <Button
-        type="primary"
-        style={{ background: "#394b59", boxShadow: "none" }}
-      >
-        Transfer Ownership
-      </Button>
-    </div>
-  );
-}
-
-const data: DataType[] = [
-  {
-    key: "1",
-    tag: 0,
-    file: "test_888376.txt",
-    versions: 1,
-    owner: "owner",
-    date_update: "22 Jun 2020 02:47:53",
-    date_active: "22 Jun 2020 02:47:53",
-    uploaded_by: "user1@yopmail.com",
-  },
-  {
-    key: "2",
-    tag: 0,
-    file: "test_888376.txt",
-    versions: 2,
-    owner: "owner",
-    date_update: "22 Jun 2020 02:47:53",
-    date_active: "22 Jun 2020 02:47:53",
-    uploaded_by: "user1@yopmail.com",
-  },
-];
 
 const columns: ColumnsType<DataType> = [
   {
@@ -126,7 +84,7 @@ const columns: ColumnsType<DataType> = [
             padding: "9px 10px",
             display: "inline-flex",
             alignItems: "center",
-            height: "27px"
+            height: "27px",
           }}
         >
           Attest
@@ -134,15 +92,15 @@ const columns: ColumnsType<DataType> = [
         <Button
           size="small"
           type="primary"
-          style={{ 
+          style={{
             background: "#3452ff",
-             border: "none",
-             fontSize: 11, 
-             padding: "9px 10px",
-             display: "inline-flex",
-             alignItems: "center",
-             height: "27px"
-            }}
+            border: "none",
+            fontSize: 11,
+            padding: "9px 10px",
+            display: "inline-flex",
+            alignItems: "center",
+            height: "27px",
+          }}
         >
           Download
         </Button>
@@ -264,9 +222,9 @@ function PageDetails() {
                       <DarkSearch
                         placeholder="Search for users"
                         onSearch={onSearch}
-                        style={{ 
-                          width: 150
-                         }}
+                        style={{
+                          width: 150,
+                        }}
                       />
                     </Col>
                   </Row>
@@ -317,7 +275,7 @@ function PageDetails() {
                   <Table
                     className="custom-table table-version"
                     columns={columns}
-                    dataSource={data}
+                    dataSource={tableVersionData}
                     pagination={false}
                   />
                 </AlmostDarkCard>
@@ -361,51 +319,9 @@ function PageDetails() {
           </Col>
         </Row>
       </Layout>
+      <Outlet />
     </Content>
   );
 }
 
 export default PageDetails;
-
-const AlmostDarkCard = styled(Card)`
-  border-radius: 3px;
-  background-color: #394b59;
-  border: none;
-`;
-
-const DarkCard = styled(Card)`
-  border-radius: 3px;
-  background-color: #293742;
-  border: none;
-`;
-
-const WhiteDivider = styled(Divider)`
-  margin: 3px 0px;
-  background-color: #dfe4e8;
-`;
-
-const DarkSearch = styled(Search)`
-  input,
-  button {
-    background-color: #293742;
-    border-color: #293742;
-    color: #dfe4e8;
-    font-size: 11px;
-  }
-  input::placeholder {
-    color: #dfe4e8;
-  }
-  svg {
-    color: #dfe4e8;
-  }
-`;
-
-const Badge = styled(Text)`
-  background: #293742;
-  padding: 5px;
-  border-radius: 20px;
-`;
-
-const Title = styled(Typography.Title)`
-  color: #dfe4e8 !important;
-`;
