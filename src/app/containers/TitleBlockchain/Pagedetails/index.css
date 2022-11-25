@@ -1,0 +1,33 @@
+.title-audit {
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+.version-infor {
+  position: relative;
+  padding-left: 27px;
+}
+.version-infor::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: #bfccd6;
+}
+.version-infor .item-version {
+  position: relative;
+  padding-bottom: 2px;
+}
+.version-infor .item-version::before {
+  position: absolute;
+  left: -34px;
+  top: 50%;
+  transform: translateY(-50%);
+  content: "";
+  width: 15px;
+  height: 16px;
+  background: url("../../../assets/images/info-icon.png");
+  background-repeat: no-repeat;
+}

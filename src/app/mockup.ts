@@ -1,6 +1,17 @@
 import QR from "./assets/images/QR.png";
 import QR2 from "./assets/images/QR.png";
 
+export interface DataType {
+  key: string;
+  file: string;
+  versions: number;
+  owner: string;
+  date_update: string;
+  date_active: string;
+  uploaded_by?: string;
+  tag?: number;
+}
+
 export const versionOption = [
   {
     value: "version1",
@@ -26,5 +37,28 @@ export const initMembers = [
     id: 2,
     user: "user2@yopmail.com",
     isOwner: false,
+  },
+];
+
+export const tableVersionData: DataType[] = [
+  {
+    key: "1",
+    tag: 0,
+    file: "test_888376.txt",
+    versions: 1,
+    owner: "owner",
+    date_update: "22 Jun 2020 02:47:53",
+    date_active: "22 Jun 2020 02:47:53",
+    uploaded_by: "user1@yopmail.com",
+  },
+  {
+    key: "2",
+    tag: 0,
+    file: "test_888376.txt",
+    versions: 2,
+    owner: "owner",
+    date_update: "22 Jun 2020 02:47:53",
+    date_active: "22 Jun 2020 02:47:53",
+    uploaded_by: "user1@yopmail.com",
   },
 ];

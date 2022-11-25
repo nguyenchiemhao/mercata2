@@ -1,15 +1,15 @@
 import { Layout } from "antd";
 import PaginationCustom from "../../component/PaginationCustom";
 import UploadFile from "../../component/UploadFile";
-import List from "./List";
+import List from "./components/List";
 import "./style.css";
 
 const { Content } = Layout;
 
-function Page() {
+function BlockchainPage() {
   return (
     <Content
-      style={{ minHeight: "calc( 100vh - 50px )", padding: "15px 5px"}}
+      style={{ minHeight: "calc( 100vh - 50px )", padding: "15px 5px" }}
       className="site-layout-background"
     >
       <UploadFile uploadVersion={false} />
@@ -28,4 +28,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default BlockchainPage;
