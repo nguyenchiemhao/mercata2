@@ -64,6 +64,7 @@ const List = () => {
             color: "#fff",
             padding: "2px 9px",
             borderRadius: "10px",
+            lineHeight: "12px"
           }}
         >
           {versions}

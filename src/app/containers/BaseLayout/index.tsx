@@ -4,11 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import Page from "../Page";
 import './index.css'
 import PageDetails from "../Pagedetails";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
 import SelectCustom from "../../component/SelectCustom";
 import { useNavigate } from "react-router-dom";
 
@@ -79,37 +74,42 @@ const BaseLayout = () => {
             items={[
               {
                 key: "1",
-                icon: <UserOutlined />,
+                icon: <img src = {require("../../assets/images/icon-menu-1.svg").default} alt = "icon-menu" />,
                 label: "Dashboard",
               },
               {
                 key: "2",
-                icon: <VideoCameraOutlined />,
+                icon: <img src = {require("../../assets/images/icon-menu-2.svg").default} alt = "icon-menu" />,
                 label: "Chains",
               },
               {
                 key: "3",
-                icon: <UploadOutlined />,
+                icon: <img src = {require("../../assets/images/icon-menu-3.svg").default} alt = "icon-menu" />,
                 label: "Blocks",
               },
               {
                 key: "4",
-                icon: <UploadOutlined />,
+                icon: <img src = {require("../../assets/images/icon-menu-4.svg").default} alt = "icon-menu" />,
                 label: "Transactions",
               },
               {
                 key: "5",
-                icon: <UploadOutlined />,
+                icon: <img src = {require("../../assets/images/icon-menu-5.svg").default} alt = "icon-menu" />,
                 label: "Accounts",
               },
               {
                 key: "6",
-                icon: <UploadOutlined />,
+                icon: <img src = {require("../../assets/images/icon-menu-6.svg").default} alt = "icon-menu" />,
                 label: "Contracts",
               },
               {
+                key: "7",
+                icon: <img src = {require("../../assets/images/icon-menu-7.svg").default} alt = "icon-menu" />,
+                label: "Contract Editor",
+              },
+              {
                 key: "/page",
-                icon: <UploadOutlined />,
+                icon: <img src = {require("../../assets/images/icon-menu-8.svg").default} alt = "icon-menu" />,
                 label: "Mercata Title Blockchain",
               },
             ]}
