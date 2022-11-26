@@ -1,10 +1,9 @@
 import { Layout, Menu } from "antd";
 import { Routes, Route } from "react-router-dom";
-import Page from "../TitleBlockchain";
 import "./index.css";
-import PageDetails from "../TitleBlockchain/Pagedetails";
 import SelectCustom from "../../component/SelectCustom";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../routes";
 
 const { Header, Sider } = Layout;
 
@@ -165,13 +164,13 @@ const BaseLayout = () => {
         </Sider>
         <Layout style={{ marginLeft: 300, height: "100%" }}>
           <Routes>
-            {/* {ROUTES.map((page) => (
-              <Route path={page.path} element={page.component} ></Route>
-            ))} */}
+            {ROUTES.map((page, index) => (
+              <Route path={page.path}
+                     key={index}
+                     element={page.component}>
 
-            <Route path="/" element={<div>home</div>}></Route>
-            <Route path="blockchain" element={<Page />}></Route>
-            <Route path="blockchain/details" element={<PageDetails />} />
+                     </Route>
+            ))}
           </Routes>
         </Layout>
       </Layout>

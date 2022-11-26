@@ -96,7 +96,7 @@ const List = () => {
       onRow={(record, rowIndex) => {
         return {
           onClick: (event) => {
-            navigate("details");
+            navigate("/blockchain/details");
           },
         };
       }}
