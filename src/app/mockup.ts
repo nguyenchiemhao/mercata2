@@ -3,11 +3,11 @@ import QR2 from "./assets/images/QR.png";
 
 export interface DataType {
   key: string;
-  file: string;
-  versions: number;
-  owner: string;
-  date_update: string;
-  date_active: string;
+  file?: string;
+  versions?: number;
+  owner?: string;
+  date_update?: string;
+  date_active?: string;
   uploaded_by?: string;
   tag?: number;
 }
