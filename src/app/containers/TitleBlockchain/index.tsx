@@ -9,7 +9,10 @@ const { Content } = Layout;
 function BlockchainPage() {
   return (
     <Content
-      style={{ minHeight: "calc( 100vh - 50px )", padding: "15px 5px" }}
+      style={{
+        minHeight: "calc( 100vh - 50px )",
+        padding: "15px 18px 15px 5px",
+      }}
       className="site-layout-background"
     >
       <UploadFile uploadVersion={false} />

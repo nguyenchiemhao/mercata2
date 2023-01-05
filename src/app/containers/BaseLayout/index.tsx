@@ -28,7 +28,7 @@ const BaseLayout = () => {
     <Layout>
       <Header
         className="header"
-        style={{ position: "sticky", top: 0, zIndex: 1 }}
+        style={{ position: "fixed", bottom: 0, zIndex: 1, width: "100%" }}
       >
         <div className="logo">
           <img
@@ -60,10 +60,10 @@ const BaseLayout = () => {
           className="site-layout-background"
           style={{
             overflow: "auto",
-            height: "calc(100vh - 107px)",
+            height: "calc(100vh - 102px)",
             position: "fixed",
             left: 0,
-            top: 53,
+            top: 0,
             bottom: 0,
           }}
         >
@@ -165,11 +165,11 @@ const BaseLayout = () => {
         <Layout style={{ marginLeft: 300, height: "100%" }}>
           <Routes>
             {ROUTES.map((page, index) => (
-              <Route path={page.path}
-                     key={index}
-                     element={page.component}>
-
-                     </Route>
+              <Route
+                path={page.path}
+                key={index}
+                element={page.component}
+              ></Route>
             ))}
           </Routes>
         </Layout>

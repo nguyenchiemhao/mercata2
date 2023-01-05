@@ -286,7 +286,7 @@ function PageDetails() {
             <AlmostDarkCard
               bodyStyle={{ padding: "24px" }}
               bordered={false}
-              style={{ height: "calc(100vh - 107px)" }}
+              style={{ height: "calc(100vh - 145px)" }}
             >
               <h3 className="title-audit">Audit log</h3>
               <div className="version-infor">
