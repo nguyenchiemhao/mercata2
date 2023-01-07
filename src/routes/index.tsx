@@ -14,7 +14,7 @@ export const ROUTES = [
   },
   {
     title: "Blockchain Page Details",
-    path: "/blockchain/details",
+    path: "/blockchain/details/:id",
     component: <PageDetails />,
   },
 ];

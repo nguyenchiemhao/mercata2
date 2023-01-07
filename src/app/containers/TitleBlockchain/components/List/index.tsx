@@ -1,46 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import SelectCustom from "../../../../component/SelectCustom";
 import { useNavigate } from "react-router-dom";
-import { DataType } from "../../../../mockup";
-
-const data: DataType[] = [
-  {
-    key: "1",
-    file: "test_888376.txt",
-    versions: 2,
-    owner: "owner",
-    date_update: "22 Jun 2020 02:47:53",
-    date_active: "22 Jun 2020 02:47:53",
-  },
-];
-
-const optionsVersion: any[] = [
-  {
-    value: "VERSION 1",
-    label: "VERSION 1",
-  },
-  {
-    value: "VERSION 2",
-    label: "VERSION 2",
-  },
-];
+import customAxios from "../../../../../services/customeAxios";
+import { API } from "../../../../../api";
+import { IList } from "../../../../../model";
 
 const List = () => {
   const navigate = useNavigate();
+  const [userData, setUserData] = useState<IList[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<IList> = [
     {
       title: "File Name",
-      dataIndex: "file",
-      key: "file",
+      dataIndex: "file_name",
+      key: "file_name",
     },
     {
       title: "Versions",
-      dataIndex: "versions",
-      key: "versions",
-      render: (_, { versions }) => (
+      dataIndex: "count_version",
+      key: "count_version",
+      render: (_, { count_version }) => (
         <span
           style={{
             background: "#293742",
@@ -50,7 +32,7 @@ const List = () => {
             lineHeight: "12px",
           }}
         >
-          {versions}
+          {count_version}
         </span>
       ),
     },
@@ -61,13 +43,13 @@ const List = () => {
     },
     {
       title: "Date Uploaded",
-      key: "date_update",
-      dataIndex: "date_update",
+      key: "date_updated",
+      dataIndex: "date_updated",
     },
     {
       title: "Last Activity At",
-      key: "date_active",
-      dataIndex: "date_active",
+      key: "last_activity",
+      dataIndex: "last_activity",
     },
     {
       key: "action",
@@ -79,24 +61,42 @@ const List = () => {
           },
         };
       },
-      render: (_, record) => (
-        <Space size="middle">
-          <SelectCustom placeholder="Download" options={optionsVersion} />
-        </Space>
-      ),
+      render: (_, record) => {
+        const optionsVersion: any[] = [];
+        record.list_version.map((x) =>
+          optionsVersion.push({
+            value: "VERSION" + x.version,
+            label: "VERSION" + x.version,
+          })
+        );
+        return (
+          <Space size="middle">
+            <SelectCustom placeholder="Download" options={optionsVersion} />
+          </Space>
+        );
+      },
     },
   ];
+
+  useEffect((): any => {
+    customAxios.get(API + "/list-file").then((res) => {
+      setIsLoading(true);
+      setUserData(res.data);
+      setIsLoading(false);
+    });
+  }, []);
 
   return (
     <Table
       className="custom-table"
       columns={columns}
-      dataSource={data}
+      loading={isLoading}
+      dataSource={userData}
       pagination={false}
       onRow={(record, rowIndex) => {
         return {
           onClick: (event) => {
-            navigate("/blockchain/details");
+            navigate("/blockchain/details/" + record.id);
           },
         };
       }}

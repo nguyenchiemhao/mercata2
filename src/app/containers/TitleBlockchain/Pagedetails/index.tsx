@@ -5,6 +5,7 @@ import {
   Image,
   Layout,
   Row,
+  Spin,
   Table,
   Typography,
 } from "antd";
@@ -14,7 +15,7 @@ import UploadFile from "../../../component/UploadFile";
 import { ColumnsType } from "antd/es/table";
 
 import SelectCustom from "../../../component/SelectCustom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DataType,
   initMembers,
@@ -30,7 +31,10 @@ import {
   WhiteDivider,
 } from "./styles";
 import Header from "../components/PageDetailsHeader";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
+import { AuditLog, IList } from "../../../../model";
+import customAxios from "../../../../services/customeAxios";
+import { API } from "../../../../api";
 
 const { Content } = Layout;
 const { Text } = Typography;
@@ -109,18 +113,60 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-const onSearch = (value: string) => console.log(value);
-
 function PageDetails() {
-  const [selectedQR, setSelectedQR] = useState<any>(versionOption[0]);
-  const [members, setMembers] = useState<any>(initMembers);
+  const [selectedQR, setSelectedQR] = useState<any>({});
+  const [versionOption, setVersionOption] = useState<any[]>([]);
+  const [userData, setUserData] = useState<IList | undefined>(undefined);
+  let { id } = useParams<"id">();
+  const [members, setMembers] = useState<any[]>([]);
+  const [auditLog, setAuditLog] = useState<AuditLog[]>([]);
+  const [searchKey, setSearchKey] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
+  
+
+  let membersFiltered = members.filter((x) => x.email.includes(searchKey));
+  
+  const onSearch = (value: string) => {
+    setSearchKey(value);
+  };
 
   const onSelect = (value: any) => {
-    setSelectedQR(versionOption.find((x) => x.value === value));
+    setSelectedQR(versionOption.find((x) => x.id === value));
   };
 
   const removeMember = (id: any) => {
-    setMembers(members.filter((x: any) => x.id !== id));
+    customAxios.delete(API + "/list_member/" + id).then((res) => {
+    });
+    getMembers()
+  };
+
+  useEffect((): any => {
+    customAxios.get(API + "/list-file/" + id).then((res) => {
+      setIsLoading(true);
+      setUserData(res.data);
+      let versionOption: any[] = [];
+      res.data.list_version.map((x: any) =>
+        versionOption.push({
+          value: x.id,
+          label: "VERSION " + x.version,
+          text: x.QR_code,
+          ...x,
+        })
+      );
+      setVersionOption(versionOption);
+      setSelectedQR(versionOption[0]);
+      setAuditLog(res.data.audit_log);
+      setIsLoading(false);
+    });
+    getMembers();
+  }, []);
+
+  const getMembers = () => {
+    setIsLoading(true);
+    customAxios.get(API + "/list_member").then((res) => {
+      setMembers(res.data);
+    });
+    setIsLoading(false);
   };
 
   return (
@@ -142,182 +188,172 @@ function PageDetails() {
         }}
       >
         <Header />
-        <Row
-          gutter={[8, 8]}
-          style={{
-            position: "relative",
-            height: "calc(100% - 75px)",
-            marginTop: 10,
-          }}
-        >
-          <Col span={18}>
-            <AlmostDarkCard bordered={false} bodyStyle={{ padding: 16 }}>
-              <Row>
-                <Col span={16}>
-                  <Descriptions
-                    size="small"
-                    title={<Text strong>User Info</Text>}
-                    layout="vertical"
-                    labelStyle={{ color: "#dfe4e8" }}
-                  >
-                    <Descriptions.Item label={<Text strong>File Name</Text>}>
-                      <Text>test_86868.txt</Text>
-                    </Descriptions.Item>
-                    <Descriptions.Item label={<Text strong>Owner</Text>}>
-                      <Text>user01@yopmail.com</Text>
-                    </Descriptions.Item>
-                    <Descriptions.Item label={<Text strong>Created</Text>}>
-                      <Text>30 Jun 2022 02:47:54</Text>
-                    </Descriptions.Item>
-                    <Descriptions.Item
-                      label={<Text strong>Descriptions</Text>}
-                      span={2}
+        {isLoading ? (
+          <Spin />
+        ) : (
+          <Row
+            gutter={[8, 8]}
+            style={{
+              position: "relative",
+              height: "calc(100% - 75px)",
+              marginTop: 10,
+            }}
+          >
+            <Col span={18}>
+              <AlmostDarkCard bordered={false} bodyStyle={{ padding: 16 }}>
+                <Row>
+                  <Col span={16}>
+                    <Descriptions
+                      size="small"
+                      title={<Text strong>User Info</Text>}
+                      layout="vertical"
+                      labelStyle={{ color: "#dfe4e8" }}
                     >
-                      <Text>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Quisquam suscipit, quas adipisci cupiditate in
-                        veniam perferendis animi officia
-                      </Text>
-                    </Descriptions.Item>
-                    <Descriptions.Item
-                      label={<Text strong>Last Activity</Text>}
+                      <Descriptions.Item label={<Text strong>File Name</Text>}>
+                        <Text>{userData?.file_name}</Text>
+                      </Descriptions.Item>
+                      <Descriptions.Item label={<Text strong>Owner</Text>}>
+                        <Text>{userData?.owner}</Text>
+                      </Descriptions.Item>
+                      <Descriptions.Item label={<Text strong>Created</Text>}>
+                        <Text>{userData?.date_updated.toString()}</Text>
+                      </Descriptions.Item>
+                      <Descriptions.Item
+                        label={<Text strong>Descriptions</Text>}
+                        span={2}
+                      >
+                        <Text>{userData?.description}</Text>
+                      </Descriptions.Item>
+                      <Descriptions.Item
+                        label={<Text strong>Last Activity</Text>}
+                      >
+                        <Text>{userData?.last_activity.toString()}</Text>
+                      </Descriptions.Item>
+                    </Descriptions>
+                  </Col>
+                  <Col span={8}>
+                    <Row
+                      gutter={[8, 8]}
+                      style={{ flexDirection: "column", alignItems: "center" }}
                     >
-                      <Text>30 Jun 2022 02:47:54</Text>
-                    </Descriptions.Item>
-                  </Descriptions>
+                      <Col>
+                        <SelectCustom
+                          options={versionOption}
+                          defaultValue="version1"
+                          onChange={(value: any) => onSelect(value)}
+                        />
+                      </Col>
+                      <Col>
+                        <Image
+                          width={97}
+                          height={97}
+                          src={selectedQR.img_QR_code}
+                        />
+                      </Col>
+                      <Col>
+                        <Text>
+                          <FileOutlined />
+                          {selectedQR.text}
+                        </Text>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </AlmostDarkCard>
+              <Row gutter={[8, 8]} style={{ marginTop: 16 }}>
+                <Col span={10}>
+                  <AlmostDarkCard bodyStyle={{ padding: 16 }}>
+                    <Row justify={"space-between"}>
+                      <Col>
+                        <Text strong>Members</Text>
+                      </Col>
+                      <Col>
+                        <DarkSearch
+                          placeholder="Search for users"
+                          onSearch={onSearch}
+                          style={{
+                            width: 150,
+                          }}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginTop: 10 }}>
+                      <Col span={24}>
+                        {membersFiltered.map((member: any) => (
+                          <Row
+                            key={member.id}
+                            gutter={[8, 8]}
+                            justify={"space-between"}
+                            align={"middle"}
+                            style={{ marginTop: 20 }}
+                          >
+                            <Col span={18}>
+                              <Text>{member.email}</Text>
+                            </Col>
+                            <Col span={6} style={{ textAlign: "center" }}>
+                              {member.permission === "owner" ? (
+                                <Badge>Owner</Badge>
+                              ) : (
+                                <Button
+                                  size="small"
+                                  danger
+                                  type="primary"
+                                  onClick={() => removeMember(member.id)}
+                                >
+                                  Remove
+                                </Button>
+                              )}
+                            </Col>
+                          </Row>
+                        ))}
+                      </Col>
+                    </Row>
+                  </AlmostDarkCard>
                 </Col>
-                <Col span={8}>
-                  <Row
-                    gutter={[8, 8]}
-                    style={{ flexDirection: "column", alignItems: "center" }}
-                  >
-                    <Col>
-                      <SelectCustom
-                        options={versionOption}
-                        defaultValue="version1"
-                        onChange={(value: any) => onSelect(value)}
-                      />
-                    </Col>
-                    <Col>
-                      <Image width={97} height={97} src={selectedQR.image} />
-                    </Col>
-                    <Col>
-                      <Text>
-                        <FileOutlined />
-                        {selectedQR.text}
-                      </Text>
-                    </Col>
-                  </Row>
+                <Col span={14}>
+                  <AlmostDarkCard bodyStyle={{ padding: 14 }}>
+                    <Row justify={"space-between"} style={{ marginBottom: 20 }}>
+                      <Col>
+                        <Text strong>Version</Text>
+                      </Col>
+                      <Col>
+                        <span className="number-version">2</span>
+                      </Col>
+                    </Row>
+                    <UploadFile uploadVersion={true} />
+                    <Table
+                      className="custom-table table-version"
+                      columns={columns}
+                      dataSource={tableVersionData}
+                      pagination={false}
+                    />
+                  </AlmostDarkCard>
                 </Col>
               </Row>
-            </AlmostDarkCard>
-            <Row gutter={[8, 8]} style={{ marginTop: 16 }}>
-              <Col span={10}>
-                <AlmostDarkCard bodyStyle={{ padding: 16 }}>
-                  <Row justify={"space-between"}>
-                    <Col>
-                      <Text strong>Members</Text>
-                    </Col>
-                    <Col>
-                      <DarkSearch
-                        placeholder="Search for users"
-                        onSearch={onSearch}
-                        style={{
-                          width: 150,
-                        }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: 10 }}>
-                    <Col span={24}>
-                      {members.map((member: any) => (
-                        <Row
-                          key={member.id}
-                          gutter={[8, 8]}
-                          justify={"space-between"}
-                          align={"middle"}
-                          style={{ marginTop: 20 }}
-                        >
-                          <Col span={18}>
-                            <Text>{member.user}</Text>
-                          </Col>
-                          <Col span={6} style={{ textAlign: "center" }}>
-                            {member.isOwner ? (
-                              <Badge>Owner</Badge>
-                            ) : (
-                              <Button
-                                size="small"
-                                danger
-                                type="primary"
-                                onClick={() => removeMember(member.id)}
-                              >
-                                Remove
-                              </Button>
-                            )}
-                          </Col>
-                        </Row>
-                      ))}
-                    </Col>
-                  </Row>
-                </AlmostDarkCard>
-              </Col>
-              <Col span={14}>
-                <AlmostDarkCard bodyStyle={{ padding: 14 }}>
-                  <Row justify={"space-between"} style={{ marginBottom: 20 }}>
-                    <Col>
-                      <Text strong>Version</Text>
-                    </Col>
-                    <Col>
-                      <span className="number-version">2</span>
-                    </Col>
-                  </Row>
-                  <UploadFile uploadVersion={true} />
-                  <Table
-                    className="custom-table table-version"
-                    columns={columns}
-                    dataSource={tableVersionData}
-                    pagination={false}
-                  />
-                </AlmostDarkCard>
-              </Col>
-            </Row>
-          </Col>
-          <Col span={6}>
-            <AlmostDarkCard
-              bodyStyle={{ padding: "24px" }}
-              bordered={false}
-              style={{ height: "calc(100vh - 145px)" }}
-            >
-              <h3 className="title-audit">Audit log</h3>
-              <div className="version-infor">
-                <div className="item-version">
-                  <DarkCard bodyStyle={{ padding: 16 }}>
-                    <Title level={5}>Version 1</Title>
-                    <Text>user1@yopmail.com</Text>
-                    <WhiteDivider />
-                    <Text>30 Jun 2022 02:47:54</Text>
-                  </DarkCard>
+            </Col>
+            <Col span={6}>
+              <AlmostDarkCard
+                bodyStyle={{ padding: "24px" }}
+                bordered={false}
+                style={{ height: "calc(100vh - 145px)" }}
+              >
+                <h3 className="title-audit">Audit log</h3>
+                <div className="version-infor">
+                  {auditLog.map((log, index) => (
+                    <div className="item-version" key={index}>
+                      <DarkCard bodyStyle={{ padding: 16 }}>
+                        <Title level={5}>Version {log.version_upload}</Title>
+                        <Text>{log.auther}</Text>
+                        <WhiteDivider />
+                        <Text>{log.date_activity.toString()}</Text>
+                      </DarkCard>
+                    </div>
+                  ))}
                 </div>
-                <div className="item-version">
-                  <DarkCard bodyStyle={{ padding: 16 }}>
-                    <Title level={5}>Version 2</Title>
-                    <Text>user1@yopmail.com</Text>
-                    <WhiteDivider />
-                    <Text>30 Jun 2022 02:47:54</Text>
-                  </DarkCard>
-                </div>
-                <div className="item-version">
-                  <DarkCard bodyStyle={{ padding: 16 }}>
-                    <Title level={5}>Version 3</Title>
-                    <Text>user1@yopmail.com</Text>
-                    <WhiteDivider />
-                    <Text>30 Jun 2022 02:47:54</Text>
-                  </DarkCard>
-                </div>
-              </div>
-            </AlmostDarkCard>
-          </Col>
-        </Row>
+              </AlmostDarkCard>
+            </Col>
+          </Row>
+        )}
       </Layout>
       <Outlet />
     </Content>
