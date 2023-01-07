@@ -25,3 +25,14 @@
   color: #BFCCD6;
   margin-left: 31px;
 }
+.ant-spin-spinning {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  background: rgb(131 131 135 / 51%);
+  left: 0;
+}

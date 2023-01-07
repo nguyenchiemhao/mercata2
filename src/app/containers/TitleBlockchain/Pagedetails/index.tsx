@@ -18,9 +18,7 @@ import SelectCustom from "../../../component/SelectCustom";
 import { useEffect, useState } from "react";
 import {
   DataType,
-  initMembers,
-  tableVersionData,
-  versionOption,
+  tableVersionData
 } from "../../../mockup";
 import {
   AlmostDarkCard,
@@ -134,15 +132,17 @@ function PageDetails() {
     setSelectedQR(versionOption.find((x) => x.id === value));
   };
 
-  const removeMember = (id: any) => {
+  const removeMember = async (id: any) => {
+    setIsLoading(true);
     customAxios.delete(API + "/list_member/" + id).then((res) => {
+      setIsLoading(false);
     });
     getMembers()
   };
 
   useEffect((): any => {
+    setIsLoading(true);
     customAxios.get(API + "/list-file/" + id).then((res) => {
-      setIsLoading(true);
       setUserData(res.data);
       let versionOption: any[] = [];
       res.data.list_version.map((x: any) =>
@@ -159,14 +159,14 @@ function PageDetails() {
       setIsLoading(false);
     });
     getMembers();
-  }, []);
+  }, [id]);
 
-  const getMembers = () => {
+  const getMembers = async () => {
     setIsLoading(true);
-    customAxios.get(API + "/list_member").then((res) => {
+    await customAxios.get(API + "/list_member").then((res) => {
       setMembers(res.data);
+      setIsLoading(false);
     });
-    setIsLoading(false);
   };
 
   return (
@@ -188,9 +188,6 @@ function PageDetails() {
         }}
       >
         <Header />
-        {isLoading ? (
-          <Spin />
-        ) : (
           <Row
             gutter={[8, 8]}
             style={{
@@ -335,7 +332,7 @@ function PageDetails() {
               <AlmostDarkCard
                 bodyStyle={{ padding: "24px" }}
                 bordered={false}
-                style={{ height: "calc(100vh - 145px)" }}
+                style={{ minHeight: "calc(100vh - 145px)" }}
               >
                 <h3 className="title-audit">Audit log</h3>
                 <div className="version-infor">
@@ -353,11 +350,11 @@ function PageDetails() {
               </AlmostDarkCard>
             </Col>
           </Row>
-        )}
       </Layout>
       <Outlet />
+      <Spin spinning={isLoading} />
     </Content>
-  );
+);
 }
 
 export default PageDetails;
