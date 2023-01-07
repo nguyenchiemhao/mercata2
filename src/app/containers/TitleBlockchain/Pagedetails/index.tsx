@@ -257,7 +257,7 @@ function PageDetails() {
                   </Col>
                 </Row>
               </AlmostDarkCard>
-              <Row gutter={[8, 8]} style={{ marginTop: 16 }}>
+              <Row gutter={[8, 8]} style={{ marginTop: 16, paddingBottom: 55 }}>
                 <Col span={10}>
                   <AlmostDarkCard bodyStyle={{ padding: 16 }}>
                     <Row justify={"space-between"}>
