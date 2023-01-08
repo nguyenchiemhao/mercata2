@@ -2,10 +2,6 @@ import React from "react";
 import { Select } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 
-// const onChange = (value: string) => {
-//   console.log(`selected ${value}`);
-// };
-
 const SelectCustom = (props:any) => {
   const { options=[], placeholder="select" } = props
   return (

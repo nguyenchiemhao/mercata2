@@ -137,18 +137,20 @@ function PageDetails() {
     customAxios.delete(API + "/list_member/" + id).then((res) => {
       setIsLoading(false);
     });
-    getMembers()
+    await getMembers()
   };
 
   useEffect((): any => {
     setIsLoading(true);
     customAxios.get(API + "/list-file/" + id).then((res) => {
-      setUserData(res.data);
+      let data: any = [];
+      res.data.map((x: any) => data.push({ key: x.id, ...x }));
+      setUserData(data);
       let versionOption: any[] = [];
       res.data.list_version.map((x: any) =>
         versionOption.push({
           value: x.id,
-          label: "VERSION " + x.version,
+          label: "VERSION " + x .version,
           text: x.QR_code,
           ...x,
         })
@@ -248,9 +250,9 @@ function PageDetails() {
                         />
                       </Col>
                       <Col>
-                        <Text>
+                        <Text style={{display: "flex"}}>
                           <FileOutlined />
-                          {selectedQR.text}
+                          <span className="text-ellipsis">{selectedQR.text}</span>
                         </Text>
                       </Col>
                     </Row>

@@ -127,6 +127,12 @@ code {
 .ant-menu-inline.ant-menu-root .ant-menu-item > .ant-menu-title-content {
   margin-left: 15px;
 }
+.text-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 /* custom pagination */
 .ant-pagination.ant-pagination-simple {

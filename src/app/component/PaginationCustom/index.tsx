@@ -13,14 +13,22 @@ const itemRender: PaginationProps["itemRender"] = ( _, type, originalElement) =>
   return originalElement;
 };
 
-const PaginationCustom = () => (
+type Props = {
+  page?: number;
+  handleChange:(page: number, pageSize: number) => void
+};
+
+const PaginationCustom = (
+  {page, handleChange}:Props
+) => (
   <>
     <Pagination
       simple
       showSizeChanger
-      defaultCurrent={1}
+      defaultCurrent={page}
       showTotal={(total, range) => `File ${range[0]}-${range[1]}`}
       total={50}
+      onChange={handleChange}
 			itemRender={itemRender}
     />
   </>

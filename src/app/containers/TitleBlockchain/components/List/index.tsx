@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import SelectCustom from "../../../../component/SelectCustom";
 import { useNavigate } from "react-router-dom";
-import customAxios from "../../../../../services/customeAxios";
-import { API } from "../../../../../api";
 import { IList } from "../../../../../model";
 
-const List = () => {
+
+
+function List(props:any) {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState<IList[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const columns: ColumnsType<IList> = [
     {
@@ -71,27 +69,19 @@ const List = () => {
         );
         return (
           <Space size="middle">
-            <SelectCustom placeholder="Download" options={optionsVersion} />
+            <SelectCustom placeholder="Download"
+                          options={optionsVersion} />
           </Space>
         );
       },
     },
   ];
 
-  useEffect((): any => {
-    customAxios.get(API + "/list-file").then((res) => {
-      setIsLoading(true);
-      setUserData(res.data);
-      setIsLoading(false);
-    });
-  }, []);
-
   return (
     <Table
       className="custom-table"
       columns={columns}
-      loading={isLoading}
-      dataSource={userData}
+      dataSource={props.list}
       pagination={false}
       onRow={(record, rowIndex) => {
         return {
