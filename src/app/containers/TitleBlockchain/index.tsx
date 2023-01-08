@@ -19,7 +19,7 @@ function BlockchainPage() {
 
   async function fetchData(page:number) {
     setIsLoading(true)
-    const res = await customAxios.get(API + `/list-file?_page=${page}&_limit=2`).then((res) => {
+    await customAxios.get(API + `/list-file?_page=${page}&_limit=2`).then((res) => {
       let data: any = [];
       res.data.map((x: any) => data.push({ key: x.id, ...x }));
       setUserData(data);

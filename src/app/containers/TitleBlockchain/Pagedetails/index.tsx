@@ -143,9 +143,7 @@ function PageDetails() {
   useEffect((): any => {
     setIsLoading(true);
     customAxios.get(API + "/list-file/" + id).then((res) => {
-      let data: any = [];
-      res.data.map((x: any) => data.push({ key: x.id, ...x }));
-      setUserData(data);
+      setUserData(res.data);
       let versionOption: any[] = [];
       res.data.list_version.map((x: any) =>
         versionOption.push({
