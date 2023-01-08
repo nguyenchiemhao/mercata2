@@ -5,9 +5,7 @@ import SelectCustom from "../../../../component/SelectCustom";
 import { useNavigate } from "react-router-dom";
 import { IList } from "../../../../../model";
 
-
-
-function List(props:any) {
+function List(props: any) {
   const navigate = useNavigate();
 
   const columns: ColumnsType<IList> = [
@@ -69,8 +67,7 @@ function List(props:any) {
         );
         return (
           <Space size="middle">
-            <SelectCustom placeholder="Download"
-                          options={optionsVersion} />
+            <SelectCustom placeholder="Download" options={optionsVersion} />
           </Space>
         );
       },
@@ -92,6 +89,6 @@ function List(props:any) {
       }}
     />
   );
-};
+}
 
 export default List;

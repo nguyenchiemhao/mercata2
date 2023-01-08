@@ -1,4 +1,4 @@
-import {Layout, Menu} from "antd";
+import { Layout, Menu } from "antd";
 import { Routes, Route } from "react-router-dom";
 import "./index.css";
 import SelectCustom from "../../component/SelectCustom";
